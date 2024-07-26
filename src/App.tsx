@@ -8,6 +8,7 @@ import {
   Box,
   Burger,
   Button,
+  Center,
   Container,
   Flex,
   Image,
@@ -114,15 +115,19 @@ const bestProducts: Product[] = [
   {
     name: "עגילי עדן",
     picture: "src/assets/product2.webp",
-    description: "אבן מואסנייט קראט אחד",
+    description: "אבן מואסנייט קראט אחד בכל עגיל",
     price: 169,
   },
   {
     name: "צמיד טליה",
     picture: "src/assets/product.webp",
-    description: "צמיד זנהב מעוטר אבני מואסנייט",
+    description: "צמיד זהב מעוטר באבני מואסנייט",
     price: 259,
   },
+];
+const carouselImages = [
+  "src/assets/homepage.webp",
+  "src/assets/homepage2.webp",
 ];
 const App: React.FC = () => {
   const {
@@ -180,20 +185,18 @@ const App: React.FC = () => {
       <AppShell.Main>
         <Stack align="center" justify="center" w={"100%"} h={"100%"}>
           <Carousel
+            loop
+            height={300}
             plugins={[autoplay.current]}
             onMouseEnter={autoplay.current.stop}
             onMouseLeave={autoplay.current.reset}
             withIndicators
-            loop
-            height={300}
           >
-            <Carousel.Slide>
-              <Image src={"src/assets/homepage2.webp"} />
-            </Carousel.Slide>
-            <Carousel.Slide>
-              <Image src={"src/assets/homepage.jpeg"} />
-            </Carousel.Slide>
+            {carouselImages.map((image) => (
+              <Image src={image} />
+            ))}
           </Carousel>
+
           <Container mt={30} mb={30} size="lg">
             <SimpleGrid cols={{ base: 1, sm: 3 }} spacing={50}>
               {marketingText.map((item) => (
@@ -201,7 +204,33 @@ const App: React.FC = () => {
               ))}
             </SimpleGrid>
           </Container>
-          <ProductCard {...bestProducts[0]}></ProductCard>
+
+          <Stack
+            gap={0}
+            pos={"relative"}
+            py={10}
+            style={{overflow:"hidden", borderRadius:"10px"}}
+
+          >
+            <Image
+              h={"100%"}
+              style={{ zIndex: -1, filter: "blur(3px)" }}
+              pos={"absolute"}
+              src={"src/assets/homepage.webp"}
+            />
+            <Text c={"white"} ta={"center"} fw={700} fz={22}>
+              הנמכר ביותר
+            </Text>
+            <Box
+              p={20}
+              w={"80%"}
+              m={"auto"}
+              style={{ border: "2px solid ", borderRadius: "10px" }}
+            >
+              <ProductCard {...bestProducts[0]} />
+            </Box>
+          </Stack>
+
           <Carousel
             w={"100%"}
             withIndicators
@@ -212,9 +241,7 @@ const App: React.FC = () => {
           >
             {bestProducts.map((product) => (
               <Carousel.Slide>
-                {/* <Box w={"33%"}> */}
                 <ProductCard {...product}></ProductCard>
-                {/* </Box> */}
               </Carousel.Slide>
             ))}
           </Carousel>
