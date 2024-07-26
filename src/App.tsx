@@ -209,8 +209,7 @@ const App: React.FC = () => {
             gap={0}
             pos={"relative"}
             py={10}
-            style={{overflow:"hidden", borderRadius:"10px"}}
-
+            style={{ overflow: "hidden", borderRadius: "10px" }}
           >
             <Image
               h={"100%"}
@@ -230,21 +229,6 @@ const App: React.FC = () => {
               <ProductCard {...bestProducts[0]} />
             </Box>
           </Stack>
-
-          <Carousel
-            w={"100%"}
-            withIndicators
-            slideSize="33%"
-            slideGap="md"
-            align="start"
-            loop
-          >
-            {bestProducts.map((product) => (
-              <Carousel.Slide>
-                <ProductCard {...product}></ProductCard>
-              </Carousel.Slide>
-            ))}
-          </Carousel>
           <Text size="xl">Instagram QR Code Generator</Text>
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -273,6 +257,20 @@ const App: React.FC = () => {
             </>
           )}
         </Stack>
+        <Carousel
+          w={"100%"}
+          withIndicators
+          slideSize="33%"
+          slideGap="md"
+          align="start"
+          loop
+        >
+          {bestProducts.map((product) => (
+            <Carousel.Slide>
+              <ProductCard {...product}></ProductCard>
+            </Carousel.Slide>
+          ))}
+        </Carousel>
       </AppShell.Main>
     </AppShell>
   );
